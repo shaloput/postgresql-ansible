@@ -1,0 +1,25 @@
+---
+
+- name: Add an Apt signing key to a specific keyring file Ubuntu
+  ansible.builtin.apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    keyring: /etc/apt/trusted.gpg.d/postgresql.gpg
+  # environment:
+  #   https_proxy: http://proxy1-co:3128
+
+- name: Add repository postgres - Ubuntu 2
+  ansible.builtin.shell: echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+
+
+- name: Install Postgres Package Ubuntu
+  ansible.builtin.package:
+    name:
+      - "postgresql-{{ postgresql_pk_number }}"
+    state: present
+    update_cache: yes
+
+- name: Service start and enable (systemd)
+  systemd:
+    name: postgresql.service
+    state: started
+    enabled: yes

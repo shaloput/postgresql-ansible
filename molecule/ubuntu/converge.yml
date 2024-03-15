@@ -2,18 +2,24 @@
 - name: Converge
   hosts: all
   gather_facts: true
+ 
   pre_tasks:
-    - name: Install pretasks
+    - name: Install
       ansible.builtin.package:
         name:
-          - ca-certificates
+          - gnupg2
+          - systemctl
+          - curl
+          - lsb-release
+        update_cache: yes
+        state: present
   tasks:
     - name: "Install PostgreSQL"
       ansible.builtin.include_role:
         name: "postgresql-ansible"
   
   vars:
-    postgresql_version: '12'
+    postgresql_version: '16'
     postgresql_conf:
       - option: listen_addresses
         value: "'0.0.0.0'"
@@ -22,5 +28,11 @@
     # postgresql_initdb_params: "--locale 'ru_RU.UTF-8'"
     pg_cube_build: false
     pg_postgis_build: true
+    pg_citus_build: true
+    pg_wal2json_build: true
+    pg_plr_build: true
+    pg_plpython_build: true
+
+
     # pg_cube:
     #   dimension: 350

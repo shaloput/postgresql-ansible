@@ -1,0 +1,22 @@
+---
+- name: Enable repository | Citus | Ubuntu
+  ansible.builtin.shell: /usr/bin/curl https://install.citusdata.com/community/deb.sh | bash
+  when: ansible_distribution == 'Ubuntu'    
+
+- name: Install Postgres Package | Citus | Ubuntu
+  ansible.builtin.package:
+    name:
+      - postgresql-{{ postgresql_pk_number }}-citus-12.1
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Enable repository | Citus | Centos
+  ansible.builtin.shell: /usr/bin/curl https://install.citusdata.com/community/rpm.sh | bash
+  when: ansible_distribution == 'Centos'    
+
+- name: Install Postgres Package | Citus | Centos
+  yum:
+    name:
+      - citus121_{{ postgresql_pk_number }}
+    state: present
+  when: ansible_distribution == 'Centos'

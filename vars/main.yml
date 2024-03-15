@@ -5,7 +5,7 @@
 postgresql_pk_number: "{% if postgresql_version | float <= 9.6 %}{{ postgresql_version.split('.')[0] }}{{ postgresql_version.split('.')[1] }}\
 {% else %}{{ postgresql_version.split('.')[0] }}{% endif %}"
 
-yum_repository_url_centos: "https://download.postgresql.org/pub/repos/yum/reporpms/\
+yum_repository_url_centos: "http://download.postgresql.org/pub/repos/yum/reporpms/\
 EL-{{ ansible_distribution_major_version }}-x86_64/\
 pgdg-redhat-repo-latest.noarch.rpm"
 

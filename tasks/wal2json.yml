@@ -1,0 +1,14 @@
+---
+- name: Install Postgres Package | wal2json | Ubuntu
+  ansible.builtin.package:
+    name:
+      - postgresql-{{ postgresql_pk_number }}-wal2json
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Postgres Package | wal2json | Centos
+  yum:
+    name:
+      - wal2json{{ postgresql_pk_number }}
+    state: present
+  when: ansible_distribution == 'Centos'

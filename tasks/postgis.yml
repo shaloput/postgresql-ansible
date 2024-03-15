@@ -1,0 +1,22 @@
+---
+- name: Enable repository | PostGIS | Centos
+  yum:
+    name:
+      - epel-release
+    state: present
+  when: ansible_distribution == 'CentOS'    
+
+- name: Install package | PostGIS | Centos
+  yum:
+    name:
+      - "postgis31_{{ postgresql_pk_number }}"
+    state: present
+  when: ansible_distribution == 'CentOS'
+
+- name: Install Postgres Package | PostGIS | Ubuntu
+  ansible.builtin.package:
+    name:
+      - postgis
+      - "postgresql-{{ postgresql_pk_number }}-postgis-3"
+    state: present
+  when: ansible_distribution == 'Ubuntu'

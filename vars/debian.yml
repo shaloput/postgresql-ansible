@@ -1,0 +1,26 @@
+---
+postgresql_conf_dir_default: "/etc/postgresql/\
+{% if postgresql_version | float <= 9.6 %}{{ postgresql_version }}\
+{% else %}{{ postgresql_version.split('.')[0] }}\
+{% endif %}\
+/main"
+
+postgresql_pgdata_default: "/var/lib/postgresql/\
+{% if postgresql_version | float <= 9.6 %}{{ postgresql_version }}\
+{% else %}{{ postgresql_version.split('.')[0] }}\
+{% endif %}\
+/main"
+
+# Место куда установлен
+postgresql_path_place: "/usr/lib/postgresql/\
+{% if postgresql_version | float <= 9.6 %}{{ postgresql_version }}\
+{% else %}{{ postgresql_version.split('.')[0] }}\
+{% endif %}"
+
+postgresql_setup: "{{ postgresql_path_place }}/bin/\
+{% if postgresql_version | float <= 9.6 %}postgresql{{ postgresql_version.split('.')[0] }}{{ postgresql_version.split('.')[1] }}\
+{% else %}postgresql-{{ postgresql_version.split('.')[0] }}\
+{% endif %}\
+-setup"
+
+postgresql_service_name: "postgresql"

@@ -1,0 +1,14 @@
+---
+- name: Install Postgres Package | plr | Ubuntu
+  ansible.builtin.package:
+    name:
+      - postgresql-{{ postgresql_pk_number }}-plr
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Postgres Package | plr | Centos
+  yum:
+    name:
+      - plr-{{ postgresql_pk_number }}
+    state: present
+  when: ansible_distribution == 'Centos'
