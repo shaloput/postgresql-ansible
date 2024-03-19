@@ -4,12 +4,13 @@
   ansible.builtin.apt_key:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     keyring: /etc/apt/trusted.gpg.d/postgresql.gpg
+  environment: "{{ proxy_env }}"
+
   # environment:
   #   https_proxy: http://proxy1-co:3128
 
 - name: Add repository postgres - Ubuntu 2
   ansible.builtin.shell: echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-
 
 - name: Install Postgres Package Ubuntu
   ansible.builtin.package:
